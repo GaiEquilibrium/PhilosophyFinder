@@ -15,7 +15,14 @@ namespace PhilosophyFinder
             IWebDriver driver = null;
             try
             {
-                driver = new FirefoxDriver();
+                try
+                {
+                    driver = new FirefoxDriver();
+                }
+                catch (DriverServiceNotFoundException)
+                {
+                    driver = new FirefoxDriver(Directory.GetCurrentDirectory());
+                }
                 Pathfinder finder = new Pathfinder(driver, logger);
                 finder.FindPath();
             }

@@ -16,7 +16,14 @@ namespace SimpleTests
         [SetUp]
         public void Setup()
         {
-            _driver = new FirefoxDriver();
+			try
+			{
+				_driver = new FirefoxDriver();
+			}
+			catch (DriverServiceNotFoundException)
+			{
+				_driver = new FirefoxDriver(Directory.GetCurrentDirectory());
+			}
             _resultDirectory = Path.Combine(Directory.GetCurrentDirectory(), "test_results");
             Directory.CreateDirectory(_resultDirectory);
             _logger = new Logger(_resultDirectory);
