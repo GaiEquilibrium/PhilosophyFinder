@@ -16,6 +16,9 @@
 //
 //изредко, превышается ожидание запроса - надо понять, почему? 
 //пример: "The HTTP request to the remote WebDriver server for URL http://localhost:49882/session/7441b99d-34bb-478e-9e95-0138a9fc7d25/back timed out after 60 seconds."
+//
+//переделать цикл поиска, особенно обнаружение  циклов
+
 
 using OpenQA.Selenium;
 using System.Collections.Generic;
@@ -126,6 +129,15 @@ namespace PhilosophyFinder
                     if (!_allVisited.Contains(_driver.Url))
                     {
                         _allVisited.Add(_driver.Url);
+                    }
+                    else
+                    {
+                        _driver.Navigate().Back();
+                        if (Step == 1)
+                        {
+                            _nextPage = _driver.FindElement(_randomPage);
+                        }
+                        Step--;
                     }
                     if (!_allVisited.Contains(clickLink))
                     {
